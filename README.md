@@ -1,132 +1,126 @@
 # OncoNavigate & TrialMatch 🧬❤️
 
+[![Live Public Web Application](https://img.shields.io/badge/Live_App-onconavigate.vercel.app-2a9d8f?style=for-the-badge&logo=vercel&logoColor=white)](https://onconavigate.vercel.app)
+[![License: MIT](https://img.shields.io/badge/License-MIT-d96b52.svg?style=for-the-badge)](LICENSE)
+[![React 19](https://img.shields.io/badge/React-19.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev)
+[![Vite 8](https://img.shields.io/badge/Vite-8.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
+[![Vitest Passing](https://img.shields.io/badge/Tests-100%25_Pass-2a9d8f?style=for-the-badge&logo=vitest&logoColor=white)](src/engine/pathwayRules.test.js)
+
 > **Evidence-Based Oncology Clinical Decision Support & Real-Time Trial Matcher**  
-> Deployed Live at **[https://onconavigate.vercel.app](https://onconavigate.vercel.app)**
+> Developed by **Dr. Ahmadreza Shirdel, MD** (Medical Doctor & Computational Researcher)  
+> Access Live Public Application: **[https://onconavigate.vercel.app](https://onconavigate.vercel.app)**
 
 ---
 
 ## 📖 Overview
 
-**OncoNavigate & TrialMatch** is an open-source, mobile-responsive web application designed to support oncologists, healthcare professionals, patients, and medical researchers. 
+**OncoNavigate & TrialMatch** is an open-source, mobile-responsive web application designed to support oncologists, medical researchers, patients, and healthcare teams. 
 
-It synthesizes complex clinical practice guidelines (**NCCN** and **ESMO**) into interactive decision pathways across 8 major cancer domains, queries **ClinicalTrials.gov API v2** in real-time for recruiting clinical studies, and provides a compassionate **Care & Clinical Hub** equipped with bedside calculators and plain-language patient care guides.
+It synthesizes complex clinical practice guidelines (**NCCN** and **ESMO**) into interactive, deterministic decision pathways across **8 major cancer domains**, queries **ClinicalTrials.gov API v2** in real-time for active recruiting clinical studies, and provides a comforting **Care & Clinical Hub** equipped with bedside calculators and plain-language patient care guides.
 
----
-
-## 🌟 Key Features
-
-### 1. Guided Clinical Pathway Navigator (8 Major Cancer Domains)
-Interactive stepper wizard mapping patient stage, histology, and molecular biomarkers to evidence-backed regimens and landmark Phase 3 trial evidence:
-* **Prostate Cancer**: mHSPC (*ARASENS* triplet therapy: ADT + Darolutamide + Docetaxel) & mCRPC (*Enzalutamide, Abiraterone, 177Lu-PSMA-617, Cabazitaxel, Olaparib* for BRCA1/2/ATM).
-* **Esophageal Cancer**: ESCC (*CHECKMATE-648: Nivolumab + Chemo; KEYNOTE-590: Pembrolizumab*) vs. EAC (*KEYNOTE-811: Trastuzumab + Pembrolizumab* if HER2+).
-* **Gastric / GEJ Cancer**: HER2+ (*KEYNOTE-811*), Claudin 18.2+ (*SPOTLIGHT / GLOW: Zolbetuximab + mFOLFOX6*), PD-L1 CPS ≥5 (*CHECKMATE-649*).
-* **Colorectal Cancer**: MSI-H (*KEYNOTE-177*), BRAF V600E (*BEACON*), RAS WT (*PARADIGM* left-sided anti-EGFR vs right-sided anti-VEGF).
-* **Non-Small Cell Lung Cancer (NSCLC)**: EGFR exon 19/L858R (*FLAURA & FLAURA2: Osimertinib*), ALK Rearranged (*CROWN: Lorlatinib / Alectinib*), KRAS G12C (*Sotorasib*), PD-L1 TPS ≥50% (*KEYNOTE-024*).
-* **Breast Cancer**: HER2 Positive (*CLEOPATRA 1L THP; DESTINY-Breast03 2L T-DXd*), HR+/HER2- (*CDK4/6 Inhibitors + Endocrine Therapy; SOLAR-1 Alpelisib*), Triple-Negative TNBC (*KEYNOTE-355 & ASCENT*).
-* **Pancreatic Cancer**: Metastatic PDAC (*NAPOLI-3: NALIRIFOX* or FOLFIRINOX) & BRCA1/2 Mutated (*POLO: Olaparib Maintenance*).
-* **Bladder / Urothelial Carcinoma**: Metastatic 1L (*EV-302 / KEYNOTE-A39: Enfortumab Vedotin + Pembrolizumab*) & FGFR2/3 (*Erdafitinib*).
-
-### 2. Real-Time ClinicalTrials.gov API Integration
-* Direct REST API v2 client with 5-minute in-memory caching, 500ms request debouncing, and rate-limit auto-retries.
-* Real-time Phase (`PHASE1`, `PHASE2`, `PHASE3`) and geographic country filtering.
-
-### 3. Care & Clinical Hub
-* **Patient & Family Care Companion**: Plain-language treatment explanations (Chemotherapy, Immunotherapy, Targeted, Radioligand), symptom management guides (Nausea, Fatigue, Neuropathy, irAEs), and an interactive **Doctor Consultation Question Checklist Builder**.
-* **Bedside Clinical Calculators**:
-  * **BSA (Mosteller)**: $\text{BSA} = \sqrt{\frac{\text{height (cm)} \times \text{weight (kg)}}{3600}}$
-  * **Cockcroft-Gault CrCl & Carboplatin Calvert AUC**: $\text{Carboplatin Dose (mg)} = \text{Target AUC} \times (\text{CrCl} + 25)$
-  * **Neutrophil-to-Lymphocyte Ratio (NLR)**: Systemic inflammatory risk scoring.
-
-### 4. Heartwarming & Reassuring Aesthetic
-* Designed with a warm cream/espresso palette (#fdfbf7 background, #d96b52 warm coral, #2a9d8f healing sage) to create a comforting, human-centered experience.
-* Fully responsive layout (sticky 2-panel view on desktop, single-column wizard on mobile devices).
-
----
-
-## 🛠️ Tech Stack
-
-* **Frontend**: React 19, Vite 8
-* **State Management**: React Context (`useReducer` finite state machine for wizard)
-* **Async Server State**: TanStack Query (React Query v5)
-* **Icons & UI**: Lucide React
-* **Styling**: Vanilla CSS Custom Properties (Design Tokens & Keyframe Animations)
-* **Testing**: Vitest (100% test coverage on clinical rule engine)
-* **Deployment**: Vercel Global CDN
-
----
-
-## 📁 Repository Structure
-
-```
-build-an-app/
-├── src/
-│   ├── components/
-│   │   ├── layout/         # Header, Footer
-│   │   ├── shared/         # DisclaimerModal (FDA CDS Compliant)
-│   │   └── ui/             # SkeletonCard, ErrorState
-│   ├── context/            # PatientProfileContext (useReducer FSM)
-│   ├── engine/             # pathwayRules.js (Pure JS rule engine + Vitest tests)
-│   ├── features/
-│   │   ├── carehub/        # CareHub.jsx (Patient Companion & Bedside Calculators)
-│   │   ├── pathway/        # PathwayNavigator.jsx (4-Step Wizard)
-│   │   ├── regimen/        # RegimenRecommender.jsx (Evidence & Guidelines)
-│   │   └── trials/         # TrialMatcher.jsx (ClinicalTrials.gov v2 Client)
-│   ├── services/           # clinicalTrialsApi.js (API client + caching)
-│   ├── styles/             # reset.css, tokens.css, animations.css
-│   ├── App.jsx
-│   └── main.jsx
-├── .licenses/              # Data use acknowledgment log
-├── index.html
-├── vite.config.js
-└── package.json
+```mermaid
+flowchart TD
+    A[Patient Profile Inputs] -->|Stage, Histology, Biomarkers| B(useReducer FSM Context)
+    B --> C{Pure JS Rule Engine}
+    C -->|Grounded in NCCN/ESMO| D[Evidence-Based Regimens & Trial Citations]
+    C -->|Extracts Biomarker Search Terms| E[ClinicalTrials.gov REST API v2]
+    E -->|In-Memory Cache & Debounce| F[Recruiting Trial Cards + Location/Phase Filters]
+    D & F --> G[Responsive Dual-Panel UI]
 ```
 
 ---
 
-## 💻 Getting Started Locally
+## 🔬 Evidence-Based Clinical Pathways (8 Cancer Domains)
 
-### Prerequisites
-* **Node.js**: v18.0.0 or higher
-* **npm**: v9.0.0 or higher
+The clinical decision engine synthesizes landmark Phase 3 randomized controlled trials (RCTs) into actionable treatment trees:
 
-### Installation
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/realrezi/onconavigate.git
-   cd onconavigate
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-
-3. **Start the local development server**:
-   ```bash
-   npm run dev
-   ```
-   Open `http://localhost:3000` in your browser.
-
-4. **Run Unit Tests**:
-   ```bash
-   npm run test
-   ```
-
-5. **Build for Production**:
-   ```bash
-   npm run build
-   ```
+| Cancer Domain | Primary Clinical Scenarios | Landmark Phase 3 Evidence & Guideline Citations |
+| :--- | :--- | :--- |
+| **Prostate Cancer** | mHSPC & mCRPC (HRR, PSMA) | **ARASENS** (ADT+Darolutamide+Docetaxel), **VISION** (177Lu-PSMA-617), **PROfound** (Olaparib), **CARD** (Cabazitaxel) |
+| **Esophageal Cancer** | ESCC & EAC / GEJ (HER2, CPS) | **CHECKMATE-648** (Nivolumab+Chemo), **KEYNOTE-590** (Pembrolizumab CPS≥10), **KEYNOTE-811** (Trastuzumab+Pembro HER2+) |
+| **Gastric / GEJ Cancer** | HER2+, CLDN18.2+, CPS ≥5 | **SPOTLIGHT & GLOW** (Zolbetuximab+mFOLFOX6), **KEYNOTE-811**, **CHECKMATE-649** (Nivolumab+Chemo) |
+| **Colorectal Cancer** | MSI-H, BRAF V600E, RAS Sidedness | **KEYNOTE-177** (1L Pembrolizumab), **BEACON** (Encorafenib+Cetuximab), **PARADIGM** (Left vs. Right Sidedness Anti-EGFR) |
+| **NSCLC (Lung)** | EGFR, ALK, KRAS G12C, PD-L1 TPS | **FLAURA & FLAURA2** (Osimertinib ± Chemo), **CROWN** (Lorlatinib), **KEYNOTE-024** (Pembrolizumab TPS≥50%) |
+| **Breast Cancer** | HR+/HER2-, HER2+, TNBC | **CLEOPATRA** (1L THP), **DESTINY-Breast03** (2L T-DXd), **MONALEESA** (CDK4/6), **KEYNOTE-355 & ASCENT** |
+| **Pancreatic Cancer** | Metastatic PDAC & Germline BRCA | **NAPOLI-3** (NALIRIFOX), **PRODIGE 4** (FOLFIRINOX), **POLO** (Olaparib Maintenance post-platinum) |
+| **Bladder Carcinoma** | Metastatic Urothelial & FGFR2/3 | **EV-302 / KEYNOTE-A39** (Enfortumab Vedotin + Pembrolizumab 1L OS Doubling), **JAVELIN Bladder 100**, **THOR** (Erdafitinib) |
 
 ---
 
-## 🛡️ Medical & Regulatory Disclaimer
+## 💛 Care & Clinical Hub
 
-This software is a **Non-Device Clinical Decision Support (CDS)** tool intended exclusively for educational, research, and decision-support use by licensed healthcare professionals. It complies with Section 520(o)(1)(E) of the FD&C Act. All recommendations are derived from published clinical trial data and guidelines and must be independently verified by the treating clinician. This software is not intended for use in medical emergencies.
+Replaces administrative bloat with immediate value for patients and treating clinicians:
+
+### 1. Patient & Family Care Companion
+* **Plain-Language Treatment Guides**: Clear breakdowns of Chemotherapy, Immunotherapy, Targeted Therapy, and Radioligand Therapy.
+* **Symptom & Side-Effect Companion**: At-home management tips for Nausea, Fatigue, Neuropathy, and Immune-Related Side Effects (irAEs), accompanied by prominent *"When to Call Clinical Team"* alerts.
+* **Interactive Doctor Question Checklist Builder**: Select questions to generate and copy a personalized appointment checklist.
+
+### 2. Bedside Clinical Calculators
+* **Body Surface Area (BSA) (Mosteller)**:
+  $$\text{BSA (m}^2\text{)} = \sqrt{\frac{\text{Height (cm)} \times \text{Weight (kg)}}{3600}}$$
+* **Creatinine Clearance (Cockcroft-Gault) & Carboplatin Calvert AUC**:
+  $$\text{Carboplatin Dose (mg)} = \text{Target AUC} \times (\text{CrCl}_{\text{capped at 125}} + 25)$$
+* **Systemic Inflammatory Index (Neutrophil-to-Lymphocyte Ratio - NLR)**:
+  $$\text{NLR} = \frac{\text{Absolute Neutrophils (ANC)}}{\text{Absolute Lymphocytes (ALC)}}$$
 
 ---
 
-## 👤 Author
+## 🛡️ FDA Non-Device CDS Regulatory Compliance
+
+Designed in strict compliance with Section 520(o)(1)(E) of the FD&C Act (FDA Non-Device Clinical Decision Support Guidance):
+1. **Explicit Clinical Basis**: All recommendations cite published Phase 3 trial literature and official NCCN/ESMO guidelines.
+2. **Transparent Logic**: Decision trees operate deterministically without hidden black-box ML weights.
+3. **Independent Verification**: Requires licensed healthcare professional judgment prior to any clinical execution.
+4. **Non-Intrusive Disclaimers**: Includes a persistent session-acknowledged compliance modal (`DisclaimerModal.jsx`).
+
+---
+
+## 💻 Tech Stack & Architecture
+
+* **Framework**: React 19 + Vite 8
+* **State Engine**: Pure JS finite state machine (`useReducer`) + TanStack Query v5
+* **Styling**: Modern CSS Custom Properties (Warm Palette: Cream, Espresso, Warm Coral, Healing Sage)
+* **Testing**: Vitest automated test suite (`npm run test`)
+* **Deployment**: Vercel Global Edge Network
+
+---
+
+## 🚀 Local Development Setup
+
+```bash
+# Clone repository
+git clone https://github.com/realrezi/onconavigate.git
+cd onconavigate
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Run Vitest test suite
+npm run test
+
+# Build production bundle
+npm run build
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please review [CONTRIBUTING.md](CONTRIBUTING.md) for details on submitting guideline updates or UI enhancements.
+
+---
+
+## 📄 License
+
+Distributed under the MIT License. See [LICENSE](LICENSE) for details.
+
+---
+
+## 👨‍⚕️ Author & Citation
 
 **Dr. Ahmadreza Shirdel, MD**  
 Medical Doctor & Computational Researcher  

@@ -1,7 +1,30 @@
 {
-  "name": "build-an-app",
+  "name": "onconavigate",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Evidence-based oncology treatment pathway navigator and real-time clinical trial matcher grounded in NCCN/ESMO guidelines and ClinicalTrials.gov REST API v2.",
+  "author": "Dr. Ahmadreza Shirdel, MD <https://github.com/realrezi>",
+  "license": "MIT",
+  "homepage": "https://onconavigate.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/realrezi/onconavigate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/realrezi/onconavigate/issues"
+  },
+  "keywords": [
+    "oncology",
+    "clinical-decision-support",
+    "clinical-trials",
+    "cancer-pathways",
+    "nccn-guidelines",
+    "esmo-guidelines",
+    "precision-medicine",
+    "react19",
+    "vite",
+    "vitest"
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite",
