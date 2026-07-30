@@ -1,0 +1,56 @@
+.skeleton-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5);
+}
+
+.skeleton-line {
+  border-radius: var(--radius-sm);
+  display: block;
+}
+
+/* Utility width/height helpers */
+.w-24  { width: 6rem;  }
+.w-full{ width: 100%;  }
+.w-3\/4{ width: 75%;   }
+.w-5\/6{ width: 83%;   }
+.w-2\/3{ width: 66%;   }
+.w-4\/5{ width: 80%;   }
+.h-3   { height: 0.75rem; }
+.h-4   { height: 1rem; }
+.h-5   { height: 1.25rem; }
+.mb-1  { margin-bottom: 0.25rem; }
+.mb-2  { margin-bottom: 0.5rem; }
+.mb-4  { margin-bottom: 1rem; }
+.mt-2  { margin-top: 0.5rem; }
+.mt-4  { margin-top: 1rem; }
+
+.skeleton-tags {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.skeleton-tag {
+  width: 64px;
+  height: 24px;
+  border-radius: var(--radius-full);
+}
+
+/* Regimen skeleton */
+.skeleton-regimen {
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-start;
+}
+
+.skeleton-regimen-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+}
+
+.skeleton-regimen-content {
+  flex: 1;
+}

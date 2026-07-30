@@ -1,0 +1,10 @@
+@import './styles/reset.css';
+@import './styles/tokens.css';
+@import './styles/animations.css';
+
+/* Base Body Application Overrides */
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+}
