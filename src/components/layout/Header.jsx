@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heart, Activity } from 'lucide-react';
+import { Heart, Activity, Globe, GraduationCap, Code } from 'lucide-react';
 import './Header.css';
 
 export default function Header({ activeTab, onTabChange }) {
@@ -39,10 +39,21 @@ export default function Header({ activeTab, onTabChange }) {
           ))}
         </nav>
 
-        {/* Badge */}
-        <div className="header-badge">
-          <span className="header-badge-dot" />
-          Empowering Clinical Decisions
+        {/* Author Credential Badge (Visible on First Load) */}
+        <div className="header-author-badge" title="Platform Author & Medical Researcher">
+          <span className="header-author-dot" />
+          <span className="header-author-name">Dr. Ahmadreza Shirdel, MD</span>
+          <div className="header-author-links">
+            <a href="https://linkedin.com/in/ahmadreza-shirdel-md-99bbaa193" target="_blank" rel="noreferrer" aria-label="LinkedIn Profile">
+              <Globe size={13} />
+            </a>
+            <a href="https://scholar.google.com/citations?user=yyL8hhIAAAAJ" target="_blank" rel="noreferrer" aria-label="Google Scholar Profile">
+              <GraduationCap size={13} />
+            </a>
+            <a href="https://github.com/realrezi" target="_blank" rel="noreferrer" aria-label="GitHub Profile">
+              <Code size={13} />
+            </a>
+          </div>
         </div>
       </div>
     </header>
