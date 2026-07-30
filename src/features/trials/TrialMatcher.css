@@ -57,6 +57,7 @@
   padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-md);
   color: var(--color-text-muted);
+  min-height: 42px;
 }
 
 .trial-select,
@@ -66,6 +67,7 @@
   color: var(--color-text-primary);
   font-size: var(--text-xs);
   outline: none;
+  width: 100%;
 }
 
 .trial-select option {
@@ -117,6 +119,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
+  flex-wrap: wrap;
 }
 
 .trial-nct {
@@ -184,9 +187,35 @@
   font-weight: var(--font-weight-semibold);
   color: var(--color-accent);
   align-self: flex-start;
+  min-height: 38px;
 }
 
 .trial-link:hover {
   color: var(--color-accent-dark);
   text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+  .trial-filters {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .trial-filter-item {
+    width: 100%;
+  }
+
+  .trial-select,
+  .trial-input {
+    font-size: 16px;
+    padding: var(--space-2) 0;
+  }
+
+  .trial-card {
+    padding: var(--space-4);
+  }
+
+  .trial-status-badge {
+    margin-left: 0;
+  }
 }

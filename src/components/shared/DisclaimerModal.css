@@ -18,6 +18,8 @@
   max-width: 620px;
   width: 100%;
   box-shadow: var(--shadow-lg);
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .disclaimer-header {
@@ -130,6 +132,7 @@
   cursor: pointer;
   transition: all var(--transition-normal);
   box-shadow: var(--shadow-accent);
+  min-height: 52px; /* Touch friendly height */
 }
 
 .disclaimer-accept-btn:hover {
@@ -142,4 +145,25 @@
   font-size: var(--text-xs);
   color: var(--color-text-muted);
   margin-top: var(--space-3);
+}
+
+/* Mobile Screens */
+@media (max-width: 640px) {
+  .disclaimer-modal {
+    padding: var(--space-5);
+    border-radius: var(--radius-xl);
+    max-height: 94vh;
+  }
+
+  .disclaimer-title {
+    font-size: var(--text-xl);
+  }
+
+  .disclaimer-list {
+    padding: var(--space-4);
+  }
+
+  .disclaimer-item-content {
+    font-size: var(--text-xs);
+  }
 }
