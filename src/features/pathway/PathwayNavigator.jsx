@@ -162,6 +162,8 @@ function StepBiomarkers({ profile, dispatch }) {
   const bm = profile.biomarkers;
   const set = (key, val) => dispatch({ type: 'SET_BIOMARKER', key, payload: val });
 
+  const [psaUnit, setPsaUnit] = useState('ng/mL');
+
   return (
     <div className="step-wrap">
       <h3 className="step-title">3. Molecular &amp; Tissue Biomarkers</h3>
@@ -174,11 +176,12 @@ function StepBiomarkers({ profile, dispatch }) {
           onChange={v => set('msi', v)}
           options={[{ value: 'MSI-H', label: 'MSI-H / dMMR' }, { value: 'MSS', label: 'MSS / pMMR' }, { value: 'unknown', label: 'Not Tested' }]}
         />
-        <BiomarkerNumber label="Tumor Mutation Burden (mut/Mb)" id="bm-tmb"
+        <BiomarkerNumber label="Tumor Mutation Burden (mutations/Mb)" id="bm-tmb"
           value={bm.tmb || ''}
           onChange={v => set('tmb', Number(v))}
           placeholder="e.g. 12"
-          hint="≥10 = TMB-High"
+          unitLabel="mut/Mb"
+          hint="≥10 mut/Mb = TMB-High"
         />
 
         {/* Prostate */}
@@ -192,7 +195,20 @@ function StepBiomarkers({ profile, dispatch }) {
             onChange={v => set('hrrMutation', v)}
             options={[{ value: 'BRCA2', label: 'BRCA2 Mutated' }, { value: 'BRCA1', label: 'BRCA1 Mutated' }, { value: 'ATM', label: 'ATM Mutated' }, { value: 'none', label: 'Negative / Wild-type' }]}
           />
-          <BiomarkerNumber label="PSA Level (ng/mL)" id="bm-psa" value={bm.psa || ''} onChange={v => set('psa', Number(v))} placeholder="e.g. 45" />
+          <BiomarkerNumber
+            label={`PSA Level (${psaUnit})`}
+            id="bm-psa"
+            value={bm.psa || ''}
+            onChange={v => set('psa', Number(v))}
+            placeholder="e.g. 45"
+            unitLabel={psaUnit}
+            unitSelect={
+              <select className="unit-toggle" value={psaUnit} onChange={e => setPsaUnit(e.target.value)}>
+                <option value="ng/mL">ng/mL</option>
+                <option value="ug/L">μg/L (SI Metric)</option>
+              </select>
+            }
+          />
         </>}
 
         {/* Esophageal */}
@@ -202,7 +218,7 @@ function StepBiomarkers({ profile, dispatch }) {
             onChange={v => set('histology', v)}
             options={[{ value: 'SCC', label: 'Squamous Cell Carcinoma (ESCC)' }, { value: 'EAC', label: 'Adenocarcinoma (EAC / GEJ)' }]}
           />
-          <BiomarkerNumber label="PD-L1 CPS Score" id="bm-pdl1" value={bm.pdl1Cps || ''} onChange={v => set('pdl1Cps', Number(v))} placeholder="e.g. 10" hint="CPS ≥10 = High Immunotherapy Benefit" />
+          <BiomarkerNumber label="PD-L1 CPS Score" id="bm-pdl1" value={bm.pdl1Cps || ''} onChange={v => set('pdl1Cps', Number(v))} placeholder="e.g. 10" unitLabel="CPS point score" hint="CPS ≥10 = High Immunotherapy Benefit" />
           <BiomarkerSelect label="HER2 Status" id="bm-her2"
             value={bm.her2 || ''}
             onChange={v => set('her2', v)}
@@ -222,7 +238,7 @@ function StepBiomarkers({ profile, dispatch }) {
             onChange={v => set('cldn18', v)}
             options={[{ value: 'positive', label: 'Positive (Zolbetuximab Eligible)' }, { value: 'negative', label: 'Negative' }]}
           />
-          <BiomarkerNumber label="PD-L1 CPS Score" id="bm-pdl1-g" value={bm.pdl1Cps || ''} onChange={v => set('pdl1Cps', Number(v))} placeholder="e.g. 5" hint="CPS ≥5 = Nivolumab Benefit" />
+          <BiomarkerNumber label="PD-L1 CPS Score" id="bm-pdl1-g" value={bm.pdl1Cps || ''} onChange={v => set('pdl1Cps', Number(v))} placeholder="e.g. 5" unitLabel="CPS point score" hint="CPS ≥5 = Nivolumab Benefit" />
         </>}
 
         {/* Colorectal */}
@@ -256,7 +272,7 @@ function StepBiomarkers({ profile, dispatch }) {
             onChange={v => set('alk', v)}
             options={[{ value: 'positive', label: 'ALK Positive (Alectinib / Lorlatinib)' }, { value: 'negative', label: 'Negative' }]}
           />
-          <BiomarkerNumber label="PD-L1 TPS (%)" id="bm-pdl1-tps" value={bm.pdl1Tps || ''} onChange={v => set('pdl1Tps', Number(v))} placeholder="e.g. 60" hint="TPS ≥50% = Monotherapy Immunotherapy" />
+          <BiomarkerNumber label="PD-L1 TPS Score (%)" id="bm-pdl1-tps" value={bm.pdl1Tps || ''} onChange={v => set('pdl1Tps', Number(v))} placeholder="e.g. 60" unitLabel="TPS %" hint="TPS ≥50% = Monotherapy Immunotherapy" />
           <BiomarkerSelect label="KRAS G12C Status" id="bm-kras"
             value={bm.krasG12c || ''}
             onChange={v => set('krasG12c', v)}
@@ -299,7 +315,7 @@ function StepBiomarkers({ profile, dispatch }) {
             onChange={v => set('fgfrMutation', v)}
             options={[{ value: 'positive', label: 'FGFR2/3 Altered (Erdafitinib)' }, { value: 'negative', label: 'Negative' }]}
           />
-          <BiomarkerNumber label="PD-L1 CPS Score" id="bm-pdl1-b" value={bm.pdl1Cps || ''} onChange={v => set('pdl1Cps', Number(v))} placeholder="e.g. 10" />
+          <BiomarkerNumber label="PD-L1 CPS Score" id="bm-pdl1-b" value={bm.pdl1Cps || ''} onChange={v => set('pdl1Cps', Number(v))} placeholder="e.g. 10" unitLabel="CPS point score" />
         </>}
       </div>
     </div>
@@ -348,20 +364,26 @@ function BiomarkerSelect({ label, id, value, onChange, options }) {
   );
 }
 
-function BiomarkerNumber({ label, id, value, onChange, placeholder, hint }) {
+function BiomarkerNumber({ label, id, value, onChange, placeholder, hint, unitLabel, unitSelect }) {
   return (
     <div className="bm-field">
-      <label htmlFor={id} className="bm-label">{label}</label>
+      <div className="field-label-row">
+        <label htmlFor={id} className="bm-label">{label}</label>
+        {unitSelect}
+      </div>
       {hint && <span className="bm-hint">{hint}</span>}
-      <input
-        id={id}
-        type="number"
-        className="bm-input"
-        value={value}
-        onChange={e => onChange(e.target.value)}
-        placeholder={placeholder}
-        min="0"
-      />
+      <div className="bm-input-wrap">
+        <input
+          id={id}
+          type="number"
+          className="bm-input"
+          value={value}
+          onChange={e => onChange(e.target.value)}
+          placeholder={placeholder}
+          min="0"
+        />
+        {unitLabel && !unitSelect && <span className="input-unit-tag">{unitLabel}</span>}
+      </div>
     </div>
   );
 }

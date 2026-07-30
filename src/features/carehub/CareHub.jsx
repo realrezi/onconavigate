@@ -16,7 +16,7 @@ export default function CareHub() {
           </div>
           <h2 className="care-title">Care Companion &amp; Clinical Toolkit</h2>
           <p className="care-subtitle">
-            Empowering patients and families with clear, supportive treatment guidance while providing clinicians with instant bedside calculators.
+            Empowering patients and families with clear, supportive treatment guidance while providing clinicians with instant bedside calculators and international unit conversions.
           </p>
         </div>
 
@@ -85,7 +85,6 @@ function PatientCareSection() {
           Clear, reassuring explanations of oncology treatment categories and what to expect during care.
         </p>
 
-        {/* Category selector */}
         <div className="guide-pills">
           {treatmentGuides.map(g => (
             <button
@@ -98,7 +97,6 @@ function PatientCareSection() {
           ))}
         </div>
 
-        {/* Active guide card */}
         <div className="guide-card animate-fade-in-up" key={guide.id}>
           <h4 className="guide-card-title">{guide.title}</h4>
           <p className="guide-summary">{guide.summary}</p>
@@ -114,7 +112,6 @@ function PatientCareSection() {
             </div>
           </div>
 
-          {/* Interactive Question Builder */}
           <div className="question-builder">
             <div className="qb-header">
               <CheckSquare size={16} /> Suggested Questions to Ask Your Doctor
@@ -187,43 +184,56 @@ function PatientCareSection() {
 }
 
 // ──────────────────────────────────────────────────────────────
-// Bedside Clinical Calculators
+// Bedside Clinical Calculators with International Unit Converters
 // ──────────────────────────────────────────────────────────────
 function ClinicalCalculatorsSection() {
-  // BSA State
-  const [height, setHeight] = useState(170); // cm
-  const [weight, setWeight] = useState(70);  // kg
+  // Height & Weight Units
+  const [heightVal, setHeightVal] = useState(170);
+  const [heightUnit, setHeightUnit] = useState('cm'); // 'cm' | 'in'
 
-  // Cockcroft-Gault & Calvert AUC State
+  const [weightVal, setWeightVal] = useState(70);
+  const [weightUnit, setWeightUnit] = useState('kg'); // 'kg' | 'lbs'
+
+  // Creatinine Units
   const [age, setAge] = useState(60);
-  const [scr, setScr] = useState(1.0); // mg/dL
+  const [scrVal, setScrVal] = useState(1.0);
+  const [scrUnit, setScrUnit] = useState('mg/dL'); // 'mg/dL' | 'umol/L'
   const [isFemale, setIsFemale] = useState(false);
-  const [targetAuc, setTargetAuc] = useState(5); // AUC 5
+  const [targetAuc, setTargetAuc] = useState(5);
 
-  // Inflammatory NLR State
-  const [anc, setAnc] = useState(4.2); // x10^9/L
-  const [alc, setAlc] = useState(1.4); // x10^9/L
+  // Inflammatory Cell Count Units
+  const [ancVal, setAncVal] = useState(4.2);
+  const [alcVal, setAlcVal] = useState(1.4);
+  const [cellUnit, setCellUnit] = useState('x10^9/L'); // 'x10^9/L' | '/uL'
 
-  // Mosteller BSA: sqrt((height * weight) / 3600)
-  const bsa = Math.sqrt((height * weight) / 3600).toFixed(2);
+  // ── Standardized Internal Values (Metric: cm, kg, mg/dL, x10^9/L) ──
+  const heightCm = heightUnit === 'in' ? heightVal * 2.54 : heightVal;
+  const weightKg = weightUnit === 'lbs' ? weightVal / 2.20462 : weightVal;
+  const scrMgDl = scrUnit === 'umol/L' ? scrVal / 88.4 : scrVal;
 
-  // Cockcroft-Gault CrCl = ((140 - age) * weight) / (72 * scr) * (isFemale ? 0.85 : 1.0)
-  const rawCrCl = ((140 - age) * weight) / (72 * (scr || 1));
-  const crCl = (rawCrCl * (isFemale ? 0.85 : 1.0)).toFixed(1);
+  const ancStd = cellUnit === '/uL' ? ancVal / 1000 : ancVal;
+  const alcStd = cellUnit === '/uL' ? alcVal / 1000 : alcVal;
+
+  // 1. Mosteller BSA Formula: sqrt((heightCm * weightKg) / 3600)
+  const bsa = heightCm > 0 && weightKg > 0 ? Math.sqrt((heightCm * weightKg) / 3600).toFixed(2) : '0.00';
+
+  // 2. Cockcroft-Gault CrCl = ((140 - age) * weightKg) / (72 * scrMgDl) * (isFemale ? 0.85 : 1.0)
+  const rawCrCl = scrMgDl > 0 ? ((140 - age) * weightKg) / (72 * scrMgDl) : 0;
+  const crClVal = (rawCrCl * (isFemale ? 0.85 : 1.0)).toFixed(1);
 
   // Calvert Formula: Dose (mg) = Target AUC * (CrCl + 25)
-  // Max CrCl for Calvert is capped at 125 mL/min per FDA guidance
-  const cappedCrCl = Math.min(Number(crCl), 125);
+  // Max CrCl for Calvert is capped at 125 mL/min per FDA/NCCN guidance
+  const cappedCrCl = Math.min(Math.max(Number(crClVal), 0), 125);
   const carboplatinDose = Math.round(targetAuc * (cappedCrCl + 25));
 
-  // NLR = ANC / ALC
-  const nlr = (anc / (alc || 1)).toFixed(2);
+  // 3. Neutrophil-to-Lymphocyte Ratio (NLR)
+  const nlr = alcStd > 0 ? (ancStd / alcStd).toFixed(2) : '0.00';
 
   return (
     <div className="calculators-wrap animate-fade-in">
       <div className="calc-intro">
         <Sparkles size={16} className="calc-icon" />
-        <p>Instant bedside clinical formulas for chemotherapy dosing, renal clearance, and systemic inflammatory risk scoring.</p>
+        <p>Bedside clinical formulas with seamless switching between Metric (kg, cm, μmol/L) and US Conventional (lbs, in, mg/dL) units.</p>
       </div>
 
       <div className="calc-grid">
@@ -235,13 +245,30 @@ function ClinicalCalculatorsSection() {
           <p className="calc-card-desc">Standard formula for calculating chemotherapy dosage per m².</p>
 
           <div className="calc-inputs">
+            {/* Height Field */}
             <div className="calc-field">
-              <label>Height (cm)</label>
-              <input type="number" value={height} onChange={e => setHeight(Number(e.target.value))} min="50" max="230" />
+              <div className="field-label-row">
+                <label>Height</label>
+                <select className="unit-toggle" value={heightUnit} onChange={e => setHeightUnit(e.target.value)}>
+                  <option value="cm">cm (Metric)</option>
+                  <option value="in">inches (US)</option>
+                </select>
+              </div>
+              <input type="number" value={heightVal} onChange={e => setHeightVal(Number(e.target.value))} min="1" />
+              {heightUnit === 'in' && <span className="unit-subtext">≈ {(heightVal * 2.54).toFixed(1)} cm</span>}
             </div>
+
+            {/* Weight Field */}
             <div className="calc-field">
-              <label>Weight (kg)</label>
-              <input type="number" value={weight} onChange={e => setWeight(Number(e.target.value))} min="30" max="200" />
+              <div className="field-label-row">
+                <label>Weight</label>
+                <select className="unit-toggle" value={weightUnit} onChange={e => setWeightUnit(e.target.value)}>
+                  <option value="kg">kg (Metric)</option>
+                  <option value="lbs">lbs (US)</option>
+                </select>
+              </div>
+              <input type="number" value={weightVal} onChange={e => setWeightVal(Number(e.target.value))} min="1" />
+              {weightUnit === 'lbs' && <span className="unit-subtext">≈ {(weightVal / 2.20462).toFixed(1)} kg</span>}
             </div>
           </div>
 
@@ -263,10 +290,20 @@ function ClinicalCalculatorsSection() {
               <label>Age (years)</label>
               <input type="number" value={age} onChange={e => setAge(Number(e.target.value))} min="18" max="100" />
             </div>
+
+            {/* Serum Creatinine Field */}
             <div className="calc-field">
-              <label>Serum Cr (mg/dL)</label>
-              <input type="number" step="0.1" value={scr} onChange={e => setScr(Number(e.target.value))} min="0.3" max="10" />
+              <div className="field-label-row">
+                <label>Serum Cr</label>
+                <select className="unit-toggle" value={scrUnit} onChange={e => setScrUnit(e.target.value)}>
+                  <option value="mg/dL">mg/dL (US)</option>
+                  <option value="umol/L">μmol/L (SI Metric)</option>
+                </select>
+              </div>
+              <input type="number" step="0.1" value={scrVal} onChange={e => setScrVal(Number(e.target.value))} min="0.1" />
+              {scrUnit === 'umol/L' && <span className="unit-subtext">≈ {(scrVal / 88.4).toFixed(2)} mg/dL</span>}
             </div>
+
             <div className="calc-field">
               <label>Sex</label>
               <select value={isFemale ? 'female' : 'male'} onChange={e => setIsFemale(e.target.value === 'female')}>
@@ -274,6 +311,7 @@ function ClinicalCalculatorsSection() {
                 <option value="female">Female (x0.85)</option>
               </select>
             </div>
+
             <div className="calc-field">
               <label>Target Carboplatin AUC</label>
               <select value={targetAuc} onChange={e => setTargetAuc(Number(e.target.value))}>
@@ -287,7 +325,7 @@ function ClinicalCalculatorsSection() {
           <div className="calc-result-box flex-col">
             <div className="result-row">
               <span className="result-label">Est. CrCl:</span>
-              <span className="result-val">{crCl} mL/min</span>
+              <span className="result-val">{crClVal} mL/min</span>
             </div>
             <div className="result-row">
               <span className="result-label">Carboplatin Dose (Calvert):</span>
@@ -304,13 +342,24 @@ function ClinicalCalculatorsSection() {
           <p className="calc-card-desc">Systemic inflammatory biomarker used in prognostic oncology scoring.</p>
 
           <div className="calc-inputs">
-            <div className="calc-field">
-              <label>Absolute Neutrophils (ANC, x10⁹/L)</label>
-              <input type="number" step="0.1" value={anc} onChange={e => setAnc(Number(e.target.value))} min="0.1" />
+            <div className="calc-field span-2">
+              <div className="field-label-row">
+                <label>Cell Count Unit</label>
+                <select className="unit-toggle" value={cellUnit} onChange={e => setCellUnit(e.target.value)}>
+                  <option value="x10^9/L">x10⁹/L or G/L (SI Metric)</option>
+                  <option value="/uL">/μL (cells/mcL - US)</option>
+                </select>
+              </div>
             </div>
+
             <div className="calc-field">
-              <label>Absolute Lymphocytes (ALC, x10⁹/L)</label>
-              <input type="number" step="0.1" value={alc} onChange={e => setAlc(Number(e.target.value))} min="0.1" />
+              <label>Neutrophils ({cellUnit})</label>
+              <input type="number" step="0.1" value={ancVal} onChange={e => setAncVal(Number(e.target.value))} min="0.1" />
+            </div>
+
+            <div className="calc-field">
+              <label>Lymphocytes ({cellUnit})</label>
+              <input type="number" step="0.1" value={alcVal} onChange={e => setAlcVal(Number(e.target.value))} min="0.1" />
             </div>
           </div>
 
