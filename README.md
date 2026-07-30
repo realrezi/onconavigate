@@ -1,12 +1,13 @@
 # OncoNavigate & TrialMatch 🧬❤️
 
 [![Live Public Web Application](https://img.shields.io/badge/Live_App-onconavigate.vercel.app-2a9d8f?style=for-the-badge&logo=vercel&logoColor=white)](https://onconavigate.vercel.app)
-[![License: MIT](https://img.shields.io/badge/License-MIT-d96b52.svg?style=for-the-badge)](LICENSE)
+[![Release: v1.1.0](https://img.shields.io/badge/Release-v1.1.0-d96b52.svg?style=for-the-badge&logo=github)](https://github.com/realrezi/onconavigate/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-2a9d8f.svg?style=for-the-badge)](LICENSE)
 [![React 19](https://img.shields.io/badge/React-19.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev)
 [![Vite 8](https://img.shields.io/badge/Vite-8.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
 [![Vitest Passing](https://img.shields.io/badge/Tests-100%25_Pass-2a9d8f?style=for-the-badge&logo=vitest&logoColor=white)](src/engine/pathwayRules.test.js)
 
-> **Evidence-Based Oncology Clinical Decision Support & Real-Time Trial Matcher**  
+> **Evidence-Based Oncology Clinical Decision Support, Mobile View Switcher & Real-Time Trial Matcher**  
 > Developed by **Dr. Ahmadreza Shirdel, MD** (Medical Doctor & Computational Researcher)  
 > Access Live Public Application: **[https://onconavigate.vercel.app](https://onconavigate.vercel.app)**
 
@@ -16,17 +17,42 @@
 
 **OncoNavigate & TrialMatch** is an open-source, mobile-responsive web application designed to support oncologists, medical researchers, patients, and healthcare teams. 
 
-It synthesizes complex clinical practice guidelines (**NCCN** and **ESMO**) into interactive, deterministic decision pathways across **8 major cancer domains**, queries **ClinicalTrials.gov API v2** in real-time for active recruiting clinical studies, and provides a comforting **Care & Clinical Hub** equipped with bedside calculators and plain-language patient care guides.
+It synthesizes complex clinical practice guidelines (**NCCN** and **ESMO**) into interactive, deterministic decision pathways across **8 major cancer domains**, queries **ClinicalTrials.gov API v2** in real-time for active recruiting clinical studies, and provides a comforting **Care & Clinical Hub** equipped with bedside calculators, international unit converters, and plain-language patient care guides.
 
 ```mermaid
 flowchart TD
-    A[Patient Profile Inputs] -->|Stage, Histology, Biomarkers| B(useReducer FSM Context)
+    A[Patient Profile & Biomarkers] -->|Stage, Histology, Biomarkers| B(useReducer FSM Context)
     B --> C{Pure JS Rule Engine}
     C -->|Grounded in NCCN/ESMO| D[Evidence-Based Regimens & Trial Citations]
     C -->|Extracts Biomarker Search Terms| E[ClinicalTrials.gov REST API v2]
     E -->|In-Memory Cache & Debounce| F[Recruiting Trial Cards + Location/Phase Filters]
-    D & F --> G[Responsive Dual-Panel UI]
+    D & F --> G[Mobile-First Segmented UI & Desktop Dual-Panel Grid]
 ```
+
+---
+
+## 📱 Native Mobile Phone UX (Android & iOS)
+
+Designed with a **mobile-first architecture** to deliver a native app experience on smartphones:
+
+* **Segmented Mobile View Switcher**: On mobile screens ($\le 768\text{px}$), an intuitive view manager toggles between `[ 📝 1. Patient Profile ]` and `[ ✨ 2. Pathways & Trials ]`, eliminating long-page scrolling.
+* **Auto-Switch Selection**: Selecting a cancer domain and stage automatically transitions to the results view.
+* **Auto-Zoom Glitch Prevention**: All inputs enforce a `16px` font-size on mobile viewports to prevent Chrome/Safari from forcibly zooming in on focus.
+* **Touch-Friendly Controls**: 48px minimum touch targets across all buttons, chips, and stepper controls.
+
+---
+
+## 📏 International Unit Measurement System
+
+Supports seamless switching between **US Conventional** and **European / Global SI Metric** standards:
+
+| Parameter | Supported Units | Auto-Conversion Formula |
+| :--- | :--- | :--- |
+| **Body Weight** | `kg` (Metric) $\leftrightarrow$ `lbs` (US) | $1 \text{ kg} = 2.20462 \text{ lbs}$ |
+| **Height** | `cm` (Metric) $\leftrightarrow$ `inches` (US) | $1 \text{ inch} = 2.54 \text{ cm}$ |
+| **Serum Creatinine** | `mg/dL` (US) $\leftrightarrow$ `μmol/L` (SI Metric) | $1 \text{ mg/dL} = 88.4 \text{ μmol/L}$ |
+| **ANC / ALC Cell Counts** | `x10⁹/L` (SI Metric) $\leftrightarrow$ `/μL` (US) | $1 \times 10^9/\text{L} = 1000 /\text{μL}$ |
+| **PSA Level** | `ng/mL` $\leftrightarrow$ `μg/L` (SI Metric) | $1 \text{ ng/mL} = 1 \text{ μg/L}$ |
 
 ---
 
