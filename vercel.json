@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/ct/:path*",
+      "destination": "https://clinicaltrials.gov/api/v2/:path*"
+    },
+    {
+      "source": "/((?!assets/|favicon.ico|vite.svg).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

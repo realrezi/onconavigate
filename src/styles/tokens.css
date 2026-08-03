@@ -1,0 +1,114 @@
+/* =========================================
+   Design Tokens — Vibrant Light Mode
+   ========================================= */
+:root {
+  /* ── Breakpoints ── */
+  --bp-sm: 480px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1440px;
+
+  /* ── High-Contrast Vibrant Light Mode Palette ── */
+  --color-bg:             #f1f5f9;  /* Cool slate-100 background to make white cards pop */
+  --color-bg-deep:        #e2e8f0;
+  --color-surface:        #ffffff;  /* Pure white cards */
+  --color-surface-2:      #f8fafc;  /* Clean slate-50 for inputs/nested boxes */
+  --color-surface-hover:  #f1f5f9;
+  --color-border:         #94a3b8;  /* slate-400 for high-definition element outlines */
+  --color-border-glow:    rgba(67, 56, 202, 0.3);
+
+  /* ── Primary Accent (Electric Indigo / Sapphire) ── */
+  --color-accent:         #4338ca;
+  --color-accent-light:   #6366f1;
+  --color-accent-dark:    #312e81;
+  --color-accent-glow:    rgba(99, 102, 241, 0.15);
+  --color-accent-glow-lg: rgba(99, 102, 241, 0.08);
+
+  /* ── Healing Secondary Accent (Vibrant Teal) ── */
+  --color-sage:           #0d9488;
+  --color-sage-light:     #14b8a6;
+  --color-sage-bg:        rgba(13, 148, 136, 0.1);
+
+  /* ── Text (Maximum High-Contrast Slate) ── */
+  --color-text-primary:   #020617;  /* slate-950, maximum crisp contrast */
+  --color-text-secondary: #0f172a;  /* slate-900, extremely dark and readable */
+  --color-text-muted:     #334155;  /* slate-700, dark slate for captions/hints (over 9.9:1 contrast) */
+  --color-text-inverse:   #ffffff;
+
+  /* ── Semantic Colors ── */
+  --color-success:        #10b981;
+  --color-success-bg:     rgba(16, 185, 129, 0.1);
+  --color-warning:        #f59e0b;
+  --color-warning-bg:     rgba(245, 158, 11, 0.1);
+  --color-danger:         #ef4444;
+  --color-danger-bg:      rgba(239, 68, 68, 0.1);
+  --color-info:           #3b82f6;
+  --color-info-bg:        rgba(59, 130, 246, 0.08);
+
+  /* ── Cancer Type Colors (Vibrant Medical) ── */
+  --color-prostate:       #8b5cf6;
+  --color-prostate-bg:    rgba(139, 92, 246, 0.1);
+  --color-esophageal:     #f97316;
+  --color-esophageal-bg:  rgba(249, 115, 22, 0.1);
+  --color-gastric:        #ec4899;
+  --color-gastric-bg:     rgba(236, 72, 153, 0.1);
+  --color-colorectal:     #0ea5e9;
+  --color-colorectal-bg:  rgba(14, 165, 233, 0.1);
+
+  /* ── Typography ── */
+  --font-sans:  'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono:  'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+
+  --text-xs:   0.875rem;  /* 14px */
+  --text-sm:   1rem;      /* 16px */
+  --text-base: 1.125rem;  /* 18px */
+  --text-lg:   1.25rem;   /* 20px */
+  --text-xl:   1.5rem;    /* 24px */
+  --text-2xl:  1.75rem;   /* 28px */
+  --text-3xl:  2rem;      /* 32px */
+  --text-4xl:  2.5rem;    /* 40px */
+  --text-5xl:  3rem;      /* 48px */
+
+  --font-weight-normal:   400;
+  --font-weight-medium:   500;
+  --font-weight-semibold: 600;
+  --font-weight-bold:     700;
+
+  /* ── Spacing ── */
+  --space-1:  0.25rem;   /* 4px  */
+  --space-2:  0.5rem;    /* 8px  */
+  --space-3:  0.75rem;   /* 12px */
+  --space-4:  1rem;      /* 16px */
+  --space-5:  1.25rem;   /* 20px */
+  --space-6:  1.5rem;    /* 24px */
+  --space-8:  2rem;      /* 32px */
+  --space-10: 2.5rem;    /* 40px */
+  --space-12: 3rem;      /* 48px */
+  --space-16: 4rem;      /* 64px */
+
+  /* ── Border Radius ── */
+  --radius-sm:   0.375rem;  /* 6px  */
+  --radius-md:   0.5rem;    /* 8px  */
+  --radius-lg:   0.75rem;   /* 12px */
+  --radius-xl:   1rem;      /* 16px */
+  --radius-2xl:  1.5rem;    /* 24px */
+  --radius-full: 9999px;
+
+  /* ── Shadows ── */
+  --shadow-sm:  0 2px 4px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md:  0 6px 20px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.04);
+  --shadow-lg:  0 16px 48px rgba(15, 23, 42, 0.1), 0 4px 14px rgba(15, 23, 42, 0.06);
+  --shadow-accent: 0 4px 20px rgba(99, 102, 241, 0.3);
+  --shadow-glow-sm: 0 0 15px rgba(59, 130, 246, 0.2);
+
+  /* ── Transitions ── */
+  --transition-fast:   150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow:   400ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ── Z-Index ── */
+  --z-base:    0;
+  --z-raised:  10;
+  --z-overlay: 100;
+  --z-modal:   1000;
+}

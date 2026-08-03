@@ -1,0 +1,13 @@
+ClinicalTrials.gov Data Use Terms & Notification Log
+======================================================
+App: OncoNavigate & TrialMatch
+Developer: Dr. Ahmadreza Shirdel, MD
+Timestamp: 2026-07-30T23:10:00Z
+
+Notice:
+Data retrieved from ClinicalTrials.gov is subject to the ClinicalTrials.gov
+Terms and Conditions of Use: https://clinicaltrials.gov/about-site/terms-conditions
+
+ClinicalTrials.gov is a service of the U.S. National Institutes of Health.
+Data provided by ClinicalTrials.gov is in the public domain, but users must
+acknowledge the source when referencing study data.
